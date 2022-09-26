@@ -1,0 +1,55 @@
+body{
+    font-family: 'Space Grotesk', sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+main{
+    flex-grow: 1;
+    background-color: rgb(233, 233, 233);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 100%;
+}
+
+footer{
+    flex-grow: 0;
+}
+
+.panel{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel picture{
+    flex: 0 0 240px;
+}
+
+picture img{
+    width: 100%;
+    height: 100%;
+}
+
+
+.main-container{
+    background-color: white;
+    flex: 1 1 auto;
+}
+
+
+
+
+@media(min-width:376px){
+    .panel{
+        flex-direction: row;
+        height: 75%;
+        width: 90%;
+    }
+    .panel picture{
+        flex: 0 0 483px;
+    }
+}
