@@ -9,6 +9,7 @@ body {
 
 span {
     display: inline-block;
+    letter-spacing: 0.1em;
 }
 
 input{
@@ -111,9 +112,8 @@ picture * {
     height: 100%;
 }
 
-
-span {
-    letter-spacing: 0.1em;
+.card-number{
+    width: 100%;
 }
 
 .hidden{
