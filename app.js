@@ -2,12 +2,15 @@ const userName = document.querySelector('#cardholder-name');
 const cardNumber = document.querySelector('#card-number');
 const month = document.querySelector('#month');
 const year = document.querySelector('#year');
-const cvc = document.querySelector('#cvc');
+const cvc = document.querySelector('#cvc-input');
 const form = document.querySelector('form');
 let inputs = document.querySelectorAll('input');
 const cardNumberSpan = document.querySelector('#cardNumberSpan');
 const userNameSpan = document.querySelector('#userNameSpan');
 const expiracySpan = document.querySelector('#expiracySpan');
+const cvcSpan = document.querySelector('.cvcSpan');
+const confirmation = document.querySelector('.confirmation');
+const continueBtn = document.querySelector('#continue-btn');
 
 function formatCardNumber(number) {
     number = number.replaceAll(" ", "");
@@ -49,76 +52,99 @@ year.addEventListener('input', function () {
     expiracySpan.innerText = expiracySpan.innerText.slice(0, 2) + "/" + year.value
 })
 
+cvc.addEventListener('input', function () {
+    cvcSpan.innerText = cvc.value;
+})
+function showError(input, msg) {
+    let errorMsg = input.parentElement.lastElementChild;
+    errorMsg.innerText = msg;
+    errorMsg.classList.add('visible');
+    input.classList.add('input-error');
+}
 
+function hideError(input) {
+    let errorMsg = input.parentElement.lastElementChild;
+    errorMsg.innerText = "";
+    errorMsg.classList.remove('visible');
+    input.classList.remove('input-error');
+}
 
-function validateEmpty(input, errorMsg) {
+function validateEmpty(input) {
+    let ret = false;
     if (input.validity.valueMissing) {
-        errorMsg.innerText = "Can't be blank";
-        errorMsg.classList.add('visible');
-        input.classList.add('input-error');
+        showError(input, "Can't be blank")
+        ret = true;
     }
     else {
-        errorMsg.innerText = "";
-        errorMsg.classList.remove('visible');
-        input.classList.remove('input-error');
+        hideError(input);
     }
+    return ret;
 }
 
-function lengthValidation(input, errorMsg, minimum) {
-    if (cardNumber.value.length < minimum && cardNumber.value.length === 0) {
-        errorMsg.innerText = "Complete all the digits";
-        errorMsg.classList.add('visible');
-        cardNumber.classList.add('input-error');
+function lengthValidation(input) {
+    let length = input.value.length;
+    let ret = false;
+    let minimum = 0;
+    if (input.id === 'card-number')
+        minimum = 19;
+    else if (input.id === 'cvc')
+        minimum = 3;
+    else
+        minimum = 0;
 
+    if (length < minimum && length === 0) {
+        showError(input, "Complete all the digits");
+        ret = true;
     } else {
-        errorMsg.innerText = "";
-        errorMsg.classList.remove('visible');
-        cardNumber.classList.remove('input-error');
+        hideError(input);
     }
+    return ret;
 }
+
+function formatValidation(input) {
+    let ret = false;
+    if (input.validity.patternMismatch) {
+        showError(input, "Wrong format");
+        ret = true;
+    } else {
+        hideError(input);
+    }
+    return ret;
+}
+
 form.addEventListener('submit', function (e) {
+    e.preventDefault();
     // emptyness validation
     for (let input of inputs) {
-        let errorMsg = input.parentElement.lastElementChild;
-        validateEmpty(input, errorMsg);
+        let error = false;
+        error = validateEmpty(input);
         // length validation
-        if (!errorMsg.classList.contains('visible')) {
-            switch (input.id) {
-                case 'card-number':
-                    lengthValidation(input, errorMsg, 19);
-                    break;
-                case 'cvc':
-                    lengthValidation(input, errorMsg, 3);
-                    break;
-            }
+        if (!error) {
+            error = lengthValidation(input)
         }
         // digits validation
-        if (!errorMsg.classList.contains('visible')) {
-            if (input.validity.patternMismatch) {
-                errorMsg.innerText = "Wrong format";
-                errorMsg.classList.add('visible');
-                input.classList.add('input-error');
-            } else {
-                errorMsg.innerText = "";
-                errorMsg.classList.remove('visible');
-                input.classList.remove('input-error');
-            }
+        if (!error) {
+            error = formatValidation(input);
         }
-        if(errorMsg.classList.contains('visible')){
-            e.preventDefault();
+        if (!error) {
+            form.classList.add('hidden');
+            confirmation.classList.add('visible');
         }
-
-
     }
-
-    // card number validation
-
-
-
-
-
-
 });
 
+continueBtn.addEventListener('click', function () {
+    for (let input of inputs) {
+        input.value = "";
+    }
+    cardNumberSpan.innerText = "0000 0000 0000 0000";
+    userNameSpan.innerText = "Jane Appleseed";
+    expiracySpan.innerText = "MM/YY";
+    cvcSpan.innerText = "000";
+    form.classList.remove('hidden');
+    confirmation.classList.remove('visible');
+    form.classList.remove('hidden');
+    confirmation.classList.remove('visible');
+})
 
 

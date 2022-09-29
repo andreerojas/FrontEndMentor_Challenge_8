@@ -33,13 +33,12 @@
         <img src="images/bg-main-mobile.png" alt="background image" class="bg-img">
 
         <div class="card card-back">
-          <span class="ccv">000</span>
+          <span class="cvcSpan">000</span>
         </div>
         <div class="card card-front">
           <div class="card-logo">
             <img src="images/card-logo.svg" alt="card logo">
           </div>
-
           <span class="card-number" id="cardNumberSpan">0000 0000 0000 0000</span>
           <span class="user-name" id="userNameSpan">Jane Appleseed</span>
           <span class="expiracy-date" id="expiracySpan">00/00</span>
@@ -49,12 +48,14 @@
         <form action="#" novalidate>
           <div class="input-container">
             <label for="cardholder-name">Cardholder Name</label>
-            <input type="text" name="name" id="cardholder-name" placeholder="e.g. Jane Appleseed" required pattern="(\D){1,}">
+            <input type="text" name="name" id="cardholder-name" placeholder="e.g. Jane Appleseed" required
+              pattern="(\D){1,}">
             <span class="error-msg hidden"></span>
           </div>
           <div class="input-container">
             <label for="card-number">Card Number</label>
-            <input type="text" name="number" id="card-number" placeholder="e.g. 1234 5678 9123 0000" pattern="((\d){4}\s){3}(\d{4})" required maxlength="19">
+            <input type="text" name="number" id="card-number" placeholder="e.g. 1234 5678 9123 0000"
+              pattern="((\d){4}\s){3}(\d{4})" required maxlength="19">
             <span class="error-msg hidden"></span>
           </div>
           <div class="input-container shared-container">
@@ -66,19 +67,20 @@
             </div>
             <div class="cvc-container">
               <label for="cvc">CVC</label>
-              <input type="tel" name="cvc" id="cvc" placeholder="e.g. 123" required maxlength="3" pattern="(\d){3}">
+              <input type="tel" name="cvc" id="cvc-input" placeholder="e.g. 123" required maxlength="3"
+                pattern="(\d){3}">
               <span class="error-msg hidden">test</span>
             </div>
           </div>
-          
+
           <button class="btn" id="confirm-btn">Confirm</button>
         </form>
 
         <div class="confirmation hidden">
           <img src="images/icon-complete.svg" alt="complete icon">
-          <p>Thank you!</p>
-          <p>We've added your card details</p>
-          <button class="btn" id="continue-btn">Continue</button>
+          <p class="thank-msg">Thank you!</p>
+          <p class="confirmation-msg">We've added your card details</p>
+          <button class="btn" id="continue-btn" type="button">Continue</button>
         </div>
       </div>
 
