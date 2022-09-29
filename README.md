@@ -29,8 +29,8 @@ Mobile version confirmation message
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://github.com/andreerojas/FrontEndMentor_Challenge_8.git)
-- Live Site URL: [Add live site URL here](https://andreerojas.github.io/FrontEndMentor_Challenge_8/)
+- [Solution URL](https://github.com/andreerojas/FrontEndMentor_Challenge_8.git)
+- [Live Site URL](https://andreerojas.github.io/FrontEndMentor_Challenge_8/)
 
 
 ## My process
