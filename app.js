@@ -113,23 +113,27 @@ function formatValidation(input) {
 }
 
 form.addEventListener('submit', function (e) {
+    let formError = false;
     e.preventDefault();
-    // emptyness validation
     for (let input of inputs) {
-        let error = false;
-        error = validateEmpty(input);
-        // length validation
-        if (!error) {
-            error = lengthValidation(input)
+        let inputError = false;
+        // emptyness validation
+        inputError = validateEmpty(input);
+        formError = (inputError && !formError) ? true:false;
+            // length validation
+            if (!inputError) {
+                inputError = lengthValidation(input);
+                formError = (inputError && !formError) ? true:false;
+            }
+        // format validation
+        if (!inputError) {
+            inputError = formatValidation(input);
+            formError = (inputError && !formError) ? true:false;
         }
-        // digits validation
-        if (!error) {
-            error = formatValidation(input);
-        }
-        if (!error) {
-            form.classList.add('hidden');
-            confirmation.classList.add('visible');
-        }
+    }
+    if (!formError) {
+        form.classList.add('hidden');
+        confirmation.classList.add('visible');
     }
 });
 
